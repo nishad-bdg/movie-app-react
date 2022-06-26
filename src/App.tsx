@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import './styles/App.css'
+import './styles/App.scss'
 import Header from './components/Header'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Movie } from '../typings'
 import requests from './utils/requests'
 import axios from 'axios'
+import Banner from './components/Banner'
 
 function App() {
   const [netflixOriginals, setNetflixOriginals] = useState<Movie[]>([])
@@ -21,7 +22,9 @@ function App() {
   return (
     <>
       <Header />
-      <div className='container-fluid'></div>
+      <div className='container-fluid'>
+        <Banner netflixOriginals={netflixOriginals} />
+      </div>
     </>
   )
 }
