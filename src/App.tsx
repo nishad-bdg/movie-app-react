@@ -6,6 +6,7 @@ import { Movie } from '../typings'
 import requests from './utils/requests'
 import axios from 'axios'
 import Banner from './components/Banner'
+import MovieList from './components/MovieList'
 
 function App() {
   const [netflixOriginals, setNetflixOriginals] = useState<Movie[]>([])
@@ -23,7 +24,12 @@ function App() {
     <>
       <Header />
       <div className='container-fluid'>
+        <section className='mb-5'>
         <Banner netflixOriginals={netflixOriginals} />
+        </section>
+        <section className='mt-5'>
+          <MovieList title='Originals' movies={netflixOriginals} />
+        </section>
       </div>
     </>
   )
