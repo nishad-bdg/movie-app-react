@@ -1,5 +1,4 @@
 import { Movie, Movies } from '../../typings'
-import { imageUrl } from '../constants'
 import Thumbnail from './Thumbnail'
 
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
 }
 function MovieList({ title, movies }: Props) {
   return (
-    <div className='container-fluid movie-list'>
+    <div className='container-fluid movie-list mt-5'>
       <h2>{title}</h2>
       <div className='d-flex flex-nowrap'>
         {movies.map((movie: Movie) => (
