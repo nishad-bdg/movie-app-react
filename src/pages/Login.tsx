@@ -21,7 +21,7 @@ function Login() {
         className='login-form col-12 col-sm-10 col-lg-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1>Sign In</h1>
+        <h2>Sign In</h2>
         <div className='d-flex flex-column'>
           <label>
             <input

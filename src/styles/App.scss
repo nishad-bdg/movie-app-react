@@ -73,4 +73,9 @@ body {
       background: $inputBackground;
     }
   }
+  .login-form {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(69,69,69, 0.5);
+  }
 }
