@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
-import './styles/App.scss'
-import Header from './components/Header'
+import Header from '../components/Header'
 // eslint-disable-next-line
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Movies } from '../typings'
-import requests from './utils/requests'
+import { Movies } from '../../typings'
+import requests from '../utils/requests'
 import axios from 'axios'
-import Banner from './components/Banner'
-import MovieList from './components/MovieList'
+import Banner from '../components/Banner'
+import MovieList from '../components/MovieList'
 
-function App() {
+function Home() {
   const [netflixOriginals, setNetflixOriginals] = useState<Movies>([])
   const [topRated, setTopRated] = useState<Movies>([])
   const [action, setAction] = useState<Movies>([])
@@ -74,4 +73,4 @@ function App() {
   )
 }
 
-export default App
+export default Home

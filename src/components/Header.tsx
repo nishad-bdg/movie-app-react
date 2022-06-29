@@ -1,26 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Header() {
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <div className='container-fluid'>
-        <a className='navbar-brand' href='#'>
+        <Link className='navbar-brand' to='/'>
           Movie App
-        </a>
+        </Link>
         <div
           className='collapse navbar-collapse justify-content-end'
           id='navbarSupportedContent'
         >
           <ul className='navbar-nav '>
             <li className='nav-item'>
-              <a className='nav-link active' aria-current='page' href='#'>
-                Register
-              </a>
-            </li>
-            <li className='nav-item'>
-              <a className='nav-link' href='#'>
+              <Link className='nav-link' to='/login'>
                 Login
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

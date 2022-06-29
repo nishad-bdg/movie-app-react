@@ -1,13 +1,18 @@
+$background: #141414;
+$inputBackground: #454545;
+$favBackground: #f11111;
+$textColor: #ffffff;
+
 body {
-  background: #141414 !important;
-  color: #ffffff !important;
+  background: $background !important;
+  color: $textColor !important;
 }
 
 .banner {
   img {
     height: 650px;
     width: 100%;
-    object-fit:fill;
+    object-fit: fill;
   }
   span {
     position: absolute;
@@ -15,9 +20,9 @@ body {
     left: 3%;
   }
   .btn-favorite {
-    background: #f11111;
-    color: #ffffff;
-    border-color: #f11111;
+    background: $favBackground;
+    color: $textColor;
+    border-color: $favBackground;
   }
 }
 
@@ -45,7 +50,7 @@ body {
     }
     .overlay {
       position: absolute;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0, 0, 0, 0.8);
       width: 100%;
       transition: 0.5s ease;
       opacity: 0;
@@ -55,6 +60,17 @@ body {
       text-align: center;
     }
   }
-
 }
-
+.login {
+  height: 100vh;
+  .error {
+    color: #ffa500;
+    font-size: 12px;
+  }
+  input {
+    background: $inputBackground;
+    &:focus{
+      background: $inputBackground;
+    }
+  }
+}
