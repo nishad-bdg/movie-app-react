@@ -16,3 +16,12 @@ export interface Movie {
 }
 
 export type Movies = Movie[]
+
+export interface PostLoginInfo {
+  email: string
+  password: string
+}
+
+export interface IdToken {
+  idToken: string
+}
