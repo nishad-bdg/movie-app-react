@@ -17,7 +17,7 @@ export interface Movie {
 
 export type Movies = Movie[]
 
-export interface PostLoginInfo {
+export interface AuthPayload {
   email: string
   password: string
 }
@@ -25,3 +25,19 @@ export interface PostLoginInfo {
 export interface IdToken {
   idToken: string
 }
+
+export interface Favorite {
+  _id: string
+  movieId: string
+  title: string
+  originalTitle: string
+  posterPath: string
+  cretaedAt: string
+  updatedAt: string
+}
+
+export type Favorites = Favorite[]
+
+
+
+

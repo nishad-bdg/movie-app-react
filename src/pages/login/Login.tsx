@@ -1,5 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { useAppDispatch } from '../../hooks/userHook'
+import { useNavigate } from 'react-router-dom'
+import { isAuthenticated } from '../../services/authenticationService'
+import { authenticateUser } from './loginSlice'
 
 type Inputs = {
   email: string
@@ -7,13 +11,22 @@ type Inputs = {
 }
 
 function Login() {
+  const dispatch = useAppDispatch()
+  let history = useNavigate()
+
+  useEffect(() => {
+    !!isAuthenticated && history('/')
+  }, [history])
+
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>()
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    dispatch(authenticateUser(data))
+  }
 
   return (
     <div className='container-fluid login d-flex justify-content-center align-items-center'>
