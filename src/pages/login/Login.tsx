@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useAppDispatch } from '../../hooks/userHook'
+import { useAppDispatch } from '../../hooks/hooks'
 import { useNavigate } from 'react-router-dom'
 import { isAuthenticated } from '../../services/authenticationService'
 import { authenticateUser } from './loginSlice'
