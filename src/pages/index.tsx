@@ -7,6 +7,8 @@ import requests from '../utils/requests'
 import axios from 'axios'
 import Banner from '../components/Banner'
 import MovieList from '../components/MovieList'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { fetchFavorites, selectFavorites } from '../store/favoriteSlice'
 
 function Home() {
   const [netflixOriginals, setNetflixOriginals] = useState<Movies>([])
@@ -50,10 +52,14 @@ function Home() {
     ])
   }
 
+  const dispatch = useAppDispatch()
+  const favorites = useAppSelector(selectFavorites)
+
   useEffect(() => {
     getMovies()
+    dispatch(fetchFavorites())
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [dispatch])
 
   return (
     <>
@@ -67,6 +73,10 @@ function Home() {
           <MovieList title='Action' movies={action} />
           <MovieList title='Romantic' movies={romantic} />
           <MovieList title='Comedy' movies={comedy} />
+          <MovieList
+            title='Favorites'
+            movies={favorites.favorites}
+          />
         </section>
       </div>
     </>

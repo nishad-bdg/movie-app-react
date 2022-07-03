@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import auth from '../../api/auth'
-import { setTokens } from '../../services/localStorage'
-import { RootState } from '../../store/store'
-import { history } from '../../helpers/history'
-import { AuthPayload } from '../../../typings'
+import auth from '../api/auth'
+import { setTokens } from '../services/localStorage'
+import { RootState } from './store'
+import { history } from '../helpers/history'
+import { AuthPayload } from '../../typings'
 
 export interface IAuthentication {
   isProcessingRequest: boolean

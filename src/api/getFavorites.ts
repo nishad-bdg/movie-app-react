@@ -1,9 +1,8 @@
 import api from '../services/api'
 import { AxiosResponse } from 'axios'
-import { IdToken } from '../../typings'
 
-const favorites = ({ idToken }: IdToken): Promise<AxiosResponse> => {
-  return api.get('/favotite', {
+const favorites = (idToken: string): Promise<AxiosResponse> => {
+  return api.get('/favorite/', {
     headers: {
       Authorization: 'Bearer ' + idToken
     }
