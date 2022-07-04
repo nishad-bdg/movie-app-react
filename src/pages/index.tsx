@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Header from '../components/Header'
 // eslint-disable-next-line
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Movies } from '../../typings'
+import { Movie, Movies } from '../../typings'
 import requests from '../utils/requests'
 import axios from 'axios'
 import Banner from '../components/Banner'
@@ -55,6 +55,10 @@ function Home() {
   const dispatch = useAppDispatch()
   const favorites = useAppSelector(selectFavorites)
 
+  const addToFavoriteClick = (movie: Movie) => {
+    console.log('movie id', movie)
+  }
+
   useEffect(() => {
     getMovies()
     dispatch(fetchFavorites())
@@ -69,14 +73,27 @@ function Home() {
           <Banner netflixOriginals={netflixOriginals} />
         </section>
         <section>
-          <MovieList title='Top Rated' movies={topRated} />
-          <MovieList title='Action' movies={action} />
-          <MovieList title='Romantic' movies={romantic} />
-          <MovieList title='Comedy' movies={comedy} />
           <MovieList
-            title='Favorites'
-            movies={favorites.favorites}
+            title='Top Rated'
+            movies={topRated}
+            addToFavoriteClick={addToFavoriteClick}
           />
+          <MovieList
+            title='Action'
+            movies={action}
+            addToFavoriteClick={addToFavoriteClick}
+          />
+          <MovieList
+            title='Romantic'
+            movies={romantic}
+            addToFavoriteClick={addToFavoriteClick}
+          />
+          <MovieList
+            title='Comedy'
+            movies={comedy}
+            addToFavoriteClick={addToFavoriteClick}
+          />
+          <MovieList title='Favorites' movies={favorites.favorites} />
         </section>
       </div>
     </>
