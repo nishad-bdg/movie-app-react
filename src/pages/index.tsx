@@ -8,7 +8,11 @@ import axios from 'axios'
 import Banner from '../components/Banner'
 import MovieList from '../components/MovieList'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
-import { fetchFavorites, selectFavorites } from '../store/favoriteSlice'
+import {
+  fetchFavorites,
+  addToFavorite,
+  selectFavorites
+} from '../store/favoriteSlice'
 
 function Home() {
   const [netflixOriginals, setNetflixOriginals] = useState<Movies>([])
@@ -56,7 +60,8 @@ function Home() {
   const favorites = useAppSelector(selectFavorites)
 
   const addToFavoriteClick = (movie: Movie) => {
-    console.log('movie id', movie)
+    dispatch(addToFavorite(movie))
+    dispatch(fetchFavorites())
   }
 
   useEffect(() => {

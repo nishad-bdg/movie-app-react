@@ -14,9 +14,9 @@ function Login() {
   const dispatch = useAppDispatch()
   let history = useNavigate()
 
-  useEffect(() => {
-    !!isAuthenticated && history('/')
-  }, [history])
+  // useEffect(() => {
+  //   isAuthenticated && history('/')
+  // }, [history])
 
   const {
     register,

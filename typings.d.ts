@@ -32,5 +32,12 @@ export interface FavoriteState {
   favorites: Movies
 }
 
+export interface FavoritePayload extends IdToken {
+  id: number
+  title: string
+  original_title: string
+  poster_path: string
+}
+
 
 

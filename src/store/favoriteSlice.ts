@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from './store'
-import getFavorites from '../api/getFavorites'
-import { FavoriteState } from '../../typings'
+import getFavorites from '../api/getFavorite'
+import { FavoritePayload, FavoriteState, Movie } from '../../typings'
 import { getAccessToken } from '../services/localStorage'
+import postFavorite from '../api/postFavorite'
 
 const initialState: FavoriteState = {
   isLoadingFavorites: false,
@@ -42,6 +43,26 @@ export const fetchFavorites = () => async (dispatch: any) => {
     if (token) {
       const favorites = await getFavorites(token)
       dispatch(success({ favorites: favorites.data }))
+    }
+  } catch (error: any) {
+    console.log(error)
+  }
+}
+
+export const addToFavorite = (data: Movie) => async (dispatch: any) => {
+  dispatch(start())
+  try {
+    const token = getAccessToken()
+    if (token) {
+      const payloadData: FavoritePayload = {
+        id: data.id || 0,
+        title: data.title || '',
+        original_title: data.original_title || '',
+        poster_path: data.poster_path || '',
+        idToken: token
+      }
+      await postFavorite(payloadData)
+      // dispatch(success({ favorites: response.data }))
     }
   } catch (error: any) {
     console.log(error)
