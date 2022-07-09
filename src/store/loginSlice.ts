@@ -4,6 +4,7 @@ import { setTokens } from '../services/localStorage'
 import { RootState } from './store'
 import { history } from '../helpers/history'
 import { AuthPayload } from '../../typings'
+import signup from '../api/signup'
 
 export interface IAuthentication {
   isProcessingRequest: boolean
@@ -46,6 +47,16 @@ export const authenticateUser =
       dispatch(error(err))
     }
   }
+
+export const signupUser = (userData: AuthPayload) => async (dispatch: any) => {
+  try {
+    const authData = await signup(userData)
+    console.log('auth data', authData.data.access_token)
+    history.push('/login')
+  } catch (err: any) {
+    dispatch(error(err))
+  }
+}
 export const { start, success, error } = authenticationSlice.actions
 export const selectAuthentication = (state: RootState) => state.authentication
 export const authenticationReducer = authenticationSlice.reducer

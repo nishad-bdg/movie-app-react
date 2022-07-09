@@ -21,8 +21,11 @@ function Home() {
   const [romantic, setRomantic] = useState<Movies>([])
   const [comedy, setComedy] = useState<Movies>([])
 
+  const dispatch = useAppDispatch()
+  const favorites = useAppSelector(selectFavorites)
+
   const getOriginals = async () => {
-    const response = await axios.get(requests.fetchNetflixOriginals)
+    const response = await axios.get(requests.fetchNetflixOriginals)   
     setNetflixOriginals(response.data.results)
   }
 
@@ -55,9 +58,6 @@ function Home() {
       getComedy()
     ])
   }
-
-  const dispatch = useAppDispatch()
-  const favorites = useAppSelector(selectFavorites)
 
   const addToFavoriteClick = (movie: Movie) => {
     dispatch(addToFavorite(movie))

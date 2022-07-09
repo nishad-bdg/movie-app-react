@@ -78,4 +78,9 @@ body {
     border-radius: 10px;
     background-color: rgba(69,69,69, 0.2);
   }
+  .login-footer {
+    a {
+      text-decoration: none !important;
+    }
+  }
 }

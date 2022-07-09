@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAppDispatch } from '../../hooks/hooks'
 import { Link, useNavigate } from 'react-router-dom'
-import { isAuthenticated } from '../../services/authenticationService'
-import { authenticateUser } from '../../store/loginSlice'
+import { signupUser } from '../../store/loginSlice'
 
 type Inputs = {
   email: string
   password: string
 }
 
-function Login() {
+function Signup() {
   const dispatch = useAppDispatch()
   let history = useNavigate()
 
@@ -25,7 +23,7 @@ function Login() {
   } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    dispatch(authenticateUser(data))
+    dispatch(signupUser(data))
   }
 
   return (
@@ -34,7 +32,7 @@ function Login() {
         className='login-form col-12 col-sm-10 col-lg-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2>Sign In</h2>
+        <h2>Sign up</h2>
         <div className='d-flex flex-column'>
           <label>
             <input
@@ -56,10 +54,10 @@ function Login() {
             {errors.password && <p className='error'>This field is required</p>}
           </label>
           <button type='submit' className='btn btn-danger'>
-            Sign In
+            Signup
           </button>
-          <p className='login-footer mt-2'>
-            Don't have an account <Link to='/signup'>Sign up</Link>
+          <p className='login-footer'>
+            Already have an account <Link to='/login'>Login</Link>
           </p>
         </div>
       </form>
@@ -67,4 +65,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Signup

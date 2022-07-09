@@ -15,8 +15,12 @@ function Thumbnail({ movie, addToFavoriteClick }: Props) {
         alt='Movie'
       ></img>
       <div className='overlay d-flex align-items-center justify-content-center'>
-        <Button variant='text' style={{ color: '#f11111'}} onClick={(e) => addToFavoriteClick?.(movie)}>
-          Add To Favorite
+        <Button
+          variant='text'
+          style={{ color: '#f11111' }}
+          onClick={(e) => addToFavoriteClick?.(movie)}
+        >
+          {movie.isFavorite ? 'Remove From Favorite' : 'Add To Favorite'}
         </Button>
       </div>
     </div>
