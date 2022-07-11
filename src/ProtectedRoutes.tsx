@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import Login from "./pages/login/Login"
+import { Navigate } from 'react-router-dom';
 import { isAuthenticated } from "./services/authenticationService"
 
 const useAuth = () => {
@@ -10,7 +10,7 @@ const useAuth = () => {
 
 const ProtectedRoutes = () => {
   const isAuth = useAuth()
-  return isAuth ? <Outlet /> : <Login />
+  return isAuth ? <Outlet /> : <Navigate replace to='/login'/>
 }
 
 export default ProtectedRoutes

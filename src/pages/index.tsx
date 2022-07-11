@@ -72,7 +72,7 @@ function Home() {
     getMovies()
     dispatch(fetchFavorites())
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [dispatch])
 
   let history = useNavigate()
 

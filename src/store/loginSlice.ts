@@ -9,8 +9,9 @@ import signup from '../api/signup'
 export interface IAuthentication {
   isProcessingRequest: boolean
   accessToken?: string
+  errorMessage: string
 }
-const initialState: IAuthentication = { isProcessingRequest: false }
+const initialState: IAuthentication = { isProcessingRequest: false, errorMessage: '' }
 export const authenticationSlice = createSlice({
   name: 'authentication',
   initialState,
@@ -30,7 +31,8 @@ export const authenticationSlice = createSlice({
     error: (state, action: PayloadAction<string>) => {
       return {
         ...state,
-        isProcessingRequest: false
+        isProcessingRequest: false,
+        errorMessage: action.payload
       }
     }
   }
