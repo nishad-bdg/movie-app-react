@@ -9,13 +9,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { store } from './store/store'
 import './styles/App.scss'
 import Signup from './pages/signup/Signup'
+import ProtectedRoutes from './ProtectedRoutes'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/' element={<Home />} />
+        </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>

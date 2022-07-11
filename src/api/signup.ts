@@ -1,9 +1,14 @@
 import api from '../services/api'
 import { AxiosResponse } from 'axios'
-import { AuthPayload } from '../../typings'
+import { SignupPayload } from '../../typings'
 
-const signup = ({ email, password }: AuthPayload): Promise<AxiosResponse> => {
-  return api.post('/user', { email, password })
+const signup = ({
+  email,
+  password,
+  confirmPassword
+}: SignupPayload): Promise<AxiosResponse> => {
+  console.log({ email, password, confirmPassword })
+  return api.post('/user', { email, password, confirmPassword })
 }
 
 export default signup

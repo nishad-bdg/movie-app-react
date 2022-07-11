@@ -6,6 +6,7 @@ import { signupUser } from '../../store/loginSlice'
 type Inputs = {
   email: string
   password: string
+  confirmPassword: string
 }
 
 function Signup() {
@@ -22,6 +23,7 @@ function Signup() {
     formState: { errors }
   } = useForm<Inputs>()
 
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     dispatch(signupUser(data))
   }
@@ -32,7 +34,7 @@ function Signup() {
         className='login-form col-12 col-sm-10 col-lg-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2>Sign up</h2>
+        <h2 className='mb-2'>Sign up</h2>
         <div className='d-flex flex-column'>
           <label>
             <input
@@ -53,10 +55,20 @@ function Signup() {
             />
             {errors.password && <p className='error'>This field is required</p>}
           </label>
+
+          <label>
+            <input
+              type='password'
+              className='form-control mb-2'
+              placeholder='Confirm Password'
+              {...register('confirmPassword', { required: true })}
+            />
+            {errors.confirmPassword && <p className='error'>This field is required</p>}
+          </label>
           <button type='submit' className='btn btn-danger'>
-            Signup
+            Sign up
           </button>
-          <p className='login-footer'>
+          <p className='login-footer mt-2'>
             Already have an account <Link to='/login'>Login</Link>
           </p>
         </div>

@@ -23,10 +23,13 @@ export interface AuthPayload {
   password: string
 }
 
+export interface SignupPayload extends AuthPayload {
+  confirmPassword: string
+}
+
 export interface IdToken {
   idToken: string
 }
-
 
 export interface FavoriteState {
   isLoadingFavorites: boolean
@@ -39,6 +42,3 @@ export interface FavoritePayload extends IdToken {
   original_title: string
   poster_path: string
 }
-
-
-

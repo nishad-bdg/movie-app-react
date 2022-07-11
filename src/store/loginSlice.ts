@@ -3,7 +3,7 @@ import auth from '../api/auth'
 import { setTokens } from '../services/localStorage'
 import { RootState } from './store'
 import { history } from '../helpers/history'
-import { AuthPayload } from '../../typings'
+import { AuthPayload, SignupPayload } from '../../typings'
 import signup from '../api/signup'
 
 export interface IAuthentication {
@@ -48,12 +48,13 @@ export const authenticateUser =
     }
   }
 
-export const signupUser = (userData: AuthPayload) => async (dispatch: any) => {
+export const signupUser = (userData: SignupPayload) => async (dispatch: any) => {
   try {
     const authData = await signup(userData)
     console.log('auth data', authData.data.access_token)
     history.push('/login')
   } catch (err: any) {
+    console.log(err)
     dispatch(error(err))
   }
 }

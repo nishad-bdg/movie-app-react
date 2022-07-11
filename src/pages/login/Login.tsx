@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAppDispatch } from '../../hooks/hooks'
 import { Link, useNavigate } from 'react-router-dom'
@@ -14,9 +14,11 @@ function Login() {
   const dispatch = useAppDispatch()
   let history = useNavigate()
 
-  // useEffect(() => {
-  //   isAuthenticated && history('/')
-  // }, [history])
+  useEffect(() => {
+    if (isAuthenticated()) {
+      history('/')
+    }
+  }, [history])
 
   const {
     register,
@@ -34,7 +36,7 @@ function Login() {
         className='login-form col-12 col-sm-10 col-lg-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2>Sign In</h2>
+        <h2 className='mb-2'>Sign In</h2>
         <div className='d-flex flex-column'>
           <label>
             <input

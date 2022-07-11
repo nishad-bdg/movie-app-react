@@ -7,12 +7,15 @@ import requests from '../utils/requests'
 import axios from 'axios'
 import Banner from '../components/Banner'
 import MovieList from '../components/MovieList'
+import { isAuthenticated } from '../services/authenticationService'
 import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import {
   fetchFavorites,
   addToFavorite,
   selectFavorites
 } from '../store/favoriteSlice'
+import { removeTokens } from '../services/localStorage'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
   const [netflixOriginals, setNetflixOriginals] = useState<Movies>([])
@@ -25,7 +28,7 @@ function Home() {
   const favorites = useAppSelector(selectFavorites)
 
   const getOriginals = async () => {
-    const response = await axios.get(requests.fetchNetflixOriginals)   
+    const response = await axios.get(requests.fetchNetflixOriginals)
     setNetflixOriginals(response.data.results)
   }
 
@@ -65,14 +68,23 @@ function Home() {
   }
 
   useEffect(() => {
+    !isAuthenticated() && history('/login')
     getMovies()
     dispatch(fetchFavorites())
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch])
+  }, [])
+
+  let history = useNavigate()
+
+  const logout = () => {
+    removeTokens()
+    history('/login')
+  }
+
 
   return (
     <>
-      <Header />
+      <Header isAuthenticated={ isAuthenticated() } logout={logout} />
       <div className='container-fluid'>
         <section className='mb-5'>
           <Banner netflixOriginals={netflixOriginals} />
