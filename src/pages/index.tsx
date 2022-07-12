@@ -76,7 +76,7 @@ function Home() {
   }
 
   const addToFavoriteClick = (movie: Movie) => {
-    const obj = favorites.favorites.find(x => x.id === movie.id)
+    const obj = favorites.favorites.find((x) => x.id === movie.id)
     if (!obj) {
       dispatch(addToFavorite(movie))
       dispatch(clearState())
@@ -107,13 +107,15 @@ function Home() {
     history('/login')
   }
 
-
   return (
     <>
-      <Header isAuthenticated={ isAuthenticated() } logout={logout} />
+      <Header isAuthenticated={isAuthenticated()} logout={logout} />
       <div className='container-fluid'>
         <section className='mb-5'>
-          <Banner netflixOriginals={netflixOriginals} />
+          <Banner
+            netflixOriginals={netflixOriginals}
+            addToFavoriteClick={addToFavoriteClick}
+          />
         </section>
         <section>
           <MovieList
