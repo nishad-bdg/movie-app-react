@@ -10,6 +10,7 @@ import { store } from './store/store'
 import './styles/App.scss'
 import Signup from './pages/signup/Signup'
 import ProtectedRoutes from './ProtectedRoutes'
+import 'notyf/notyf.min.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

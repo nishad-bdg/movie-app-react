@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAppDispatch } from '../../hooks/hooks'
 import { Link, useNavigate } from 'react-router-dom'
 import { isAuthenticated } from '../../services/authenticationService'
 import { Notyf } from 'notyf'
-import 'notyf/notyf.min.css'
 
 import {
   authenticateUser,

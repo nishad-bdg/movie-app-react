@@ -1,7 +1,15 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAppDispatch } from '../../hooks/hooks'
 import { Link, useNavigate } from 'react-router-dom'
-import { signupUser } from '../../store/loginSlice'
+import {
+  clearState,
+  selectAuthentication,
+  signupUser
+} from '../../store/loginSlice'
+import { useSelector } from 'react-redux'
+import { Notyf } from 'notyf'
+import { isAuthenticated } from '../../services/authenticationService'
+import { useEffect } from 'react'
 
 type Inputs = {
   email: string
@@ -11,18 +19,45 @@ type Inputs = {
 
 function Signup() {
   const dispatch = useAppDispatch()
-  let history = useNavigate()
+  const history = useNavigate()
 
-  // useEffect(() => {
-  //   isAuthenticated && history('/')
-  // }, [history])
+  const notyf = new Notyf({
+    duration: 5000,
+    position: {
+      x: 'right',
+      y: 'top'
+    }
+  })
+
+  const { isProcessingRequest, errorMessage, accessToken, isSuccess } =
+    useSelector(selectAuthentication)
+
+  useEffect(() => {
+    isAuthenticated() && history('/')
+  }, [history])
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearState())
+    }
+  })
+
+  useEffect(() => {
+    if (errorMessage !== '') {
+      notyf.error(errorMessage)
+    }
+
+    if (isSuccess) {
+      notyf.success('Signup successful')
+      history('/login')
+    }
+  }, [errorMessage, isSuccess])
 
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>()
-
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     dispatch(signupUser(data))
@@ -34,7 +69,7 @@ function Signup() {
         className='login-form col-12 col-sm-10 col-lg-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className='mb-2'>Sign up</h2>
+        <h2 className='mb-2'>Sign up {isSuccess}</h2>
         <div className='d-flex flex-column'>
           <label>
             <input
@@ -63,10 +98,12 @@ function Signup() {
               placeholder='Confirm Password'
               {...register('confirmPassword', { required: true })}
             />
-            {errors.confirmPassword && <p className='error'>This field is required</p>}
+            {errors.confirmPassword && (
+              <p className='error'>This field is required</p>
+            )}
           </label>
           <button type='submit' className='btn btn-danger'>
-            Sign up
+            {isProcessingRequest ? 'loading' : 'Sign up'}
           </button>
           <p className='login-footer mt-2'>
             Already have an account <Link to='/login'>Login</Link>

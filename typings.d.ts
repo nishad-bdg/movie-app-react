@@ -42,3 +42,10 @@ export interface FavoritePayload extends IdToken {
   original_title: string
   poster_path: string
 }
+
+export interface IAuthentication {
+  isProcessingRequest: boolean
+  accessToken?: string | null
+  errorMessage: string
+  isSuccess: boolean
+}
