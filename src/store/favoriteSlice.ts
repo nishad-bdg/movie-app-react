@@ -96,7 +96,7 @@ export const removeFavorites = (id: number, index: number) => async (dispatch: a
       await removeFavorite(payload)
       dispatch(removeSuccess(index))
     } catch (error: any) {
-      dispatch(error(error.response.data.error))
+      dispatch(error(error.response.data.message))
     }
   }
 }

@@ -60,7 +60,7 @@ export const signupUser =
       dispatch(signupSuccess())
     } catch (err: any) {
       console.log(err.response)
-      dispatch(error(err.response.data.error))
+      dispatch(error(err.response.data.message))
     }
   }
 export const { start, success, error, clearState, signupSuccess } =

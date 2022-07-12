@@ -29,22 +29,19 @@ function Signup() {
     }
   })
 
-  const { isProcessingRequest, errorMessage, accessToken, isSuccess } =
+  const { isProcessingRequest, errorMessage, isSuccess } =
     useSelector(selectAuthentication)
 
   useEffect(() => {
     isAuthenticated() && history('/')
-  }, [history])
-
-  useEffect(() => {
     return () => {
       dispatch(clearState())
     }
-  })
+  }, [history])
 
   useEffect(() => {
     if (errorMessage !== '') {
-      notyf.error(errorMessage)
+      notyf.error(errorMessage.toString())
     }
 
     if (isSuccess) {

@@ -39,7 +39,8 @@ function Home() {
   const dispatch = useAppDispatch()
   const favorites = useAppSelector(selectFavorites)
 
-  const { isSuccess, isRemoveSuccess, errorMessage } = useSelector(selectFavorites)
+  const { isSuccess, isRemoveSuccess, errorMessage } =
+    useSelector(selectFavorites)
 
   const getOriginals = async () => {
     const response = await axios.get(requests.fetchNetflixOriginals)
@@ -78,11 +79,11 @@ function Home() {
 
   const addToFavoriteClick = (movie: Movie) => {
     const obj = favorites.favorites.findIndex((x) => x.id === movie.id)
-    if (obj < 0 ) {
+    if (obj < 0) {
       dispatch(addToFavorite(movie))
       dispatch(clearState())
     } else {
-      dispatch(removeFavorites(movie.id || 0, obj)) 
+      dispatch(removeFavorites(movie.id || 0, obj))
     }
   }
 
@@ -107,11 +108,11 @@ function Home() {
       dispatch(clearState())
     }
 
-    if(errorMessage !== '') {
+    if (errorMessage !== '') {
       notyf.error(errorMessage)
       dispatch(clearState())
     }
-  })
+  }, [isSuccess, isRemoveSuccess, errorMessage])
 
   let history = useNavigate()
 
@@ -151,7 +152,11 @@ function Home() {
             movies={comedy}
             addToFavoriteClick={addToFavoriteClick}
           />
-          <MovieList title='Favorites' movies={favorites.favorites} addToFavoriteClick={addToFavoriteClick} />
+          <MovieList
+            title='Favorites'
+            movies={favorites.favorites}
+            addToFavoriteClick={addToFavoriteClick}
+          />
         </section>
       </div>
     </>
