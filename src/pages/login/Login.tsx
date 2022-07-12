@@ -1,9 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAppDispatch } from '../../hooks/hooks'
 import { Link, useNavigate } from 'react-router-dom'
 import { isAuthenticated } from '../../services/authenticationService'
-import { authenticateUser } from '../../store/loginSlice'
+import { Notyf } from 'notyf'
+import 'notyf/notyf.min.css'
+
+import {
+  authenticateUser,
+  clearState,
+  selectAuthentication
+} from '../../store/loginSlice'
+import { useSelector } from 'react-redux'
 
 type Inputs = {
   email: string
@@ -12,13 +20,38 @@ type Inputs = {
 
 function Login() {
   const dispatch = useAppDispatch()
-  let history = useNavigate()
+  const history = useNavigate()
+
+  const notyf = new Notyf({
+    duration: 5000,
+    position: {
+      x: 'right',
+      y: 'top'
+    }
+  })
+
+  const { isProcessingRequest, errorMessage, accessToken } =
+    useSelector(selectAuthentication)
 
   useEffect(() => {
     if (isAuthenticated()) {
       history('/')
     }
+    return () => {
+      dispatch(clearState())
+    }
   }, [history])
+
+  useEffect(() => {
+    if (errorMessage !== '') {
+      notyf.error(errorMessage)
+    }
+
+    if (accessToken) {
+      dispatch(clearState())
+      history('/')
+    }
+  }, [errorMessage, accessToken])
 
   const {
     register,
@@ -58,7 +91,7 @@ function Login() {
             {errors.password && <p className='error'>This field is required</p>}
           </label>
           <button type='submit' className='btn btn-danger'>
-            Sign In
+            {isProcessingRequest ? 'Loading' : 'Sign In'}
           </button>
           <p className='login-footer mt-2'>
             Don't have an account <Link to='/signup'>Sign up</Link>
