@@ -31,7 +31,10 @@ function MovieList({ title, movies, addToFavoriteClick }: Props) {
     <div className='container-fluid movie-list mt-5'>
       <h2>{title}</h2>
       <div>
-        <ChevronLeftIcon className={`left-icon ${ !isMoved && 'hide-element'}`} onClick={() => handleClick('left')} />
+        <ChevronLeftIcon
+          className={`left-icon ${!isMoved && 'hide-element'}`}
+          onClick={() => handleClick('left')}
+        />
         <div className='d-flex flex-nowrap' ref={rowRef}>
           {movies.map((movie: Movie) => (
             <Thumbnail
@@ -42,7 +45,10 @@ function MovieList({ title, movies, addToFavoriteClick }: Props) {
             />
           ))}
         </div>
-        <ChevronRightIcon className='right-icon' onClick={() => handleClick('right')} />
+        <ChevronRightIcon
+          className={`right-icon ${movies.length < 2 && 'hide-element'}`}
+          onClick={() => handleClick('right')}
+        />
       </div>
     </div>
   )
