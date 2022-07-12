@@ -152,11 +152,13 @@ function Home() {
             movies={comedy}
             addToFavoriteClick={addToFavoriteClick}
           />
-          <MovieList
-            title='Favorites'
-            movies={favorites.favorites}
-            addToFavoriteClick={addToFavoriteClick}
-          />
+          {favorites.favorites.length > 0 && (
+            <MovieList
+              title='Favorites'
+              movies={favorites.favorites}
+              addToFavoriteClick={addToFavoriteClick}
+            />
+          )}
         </section>
       </div>
     </>
