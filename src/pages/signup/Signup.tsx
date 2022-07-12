@@ -5,7 +5,7 @@ import {
   clearState,
   selectAuthentication,
   signupUser
-} from '../../store/loginSlice'
+} from '../../store/authSlice'
 import { useSelector } from 'react-redux'
 import { Notyf } from 'notyf'
 import { isAuthenticated } from '../../services/authenticationService'

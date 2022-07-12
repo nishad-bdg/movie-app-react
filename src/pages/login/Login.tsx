@@ -9,7 +9,7 @@ import {
   authenticateUser,
   clearState,
   selectAuthentication
-} from '../../store/loginSlice'
+} from '../../store/authSlice'
 import { useSelector } from 'react-redux'
 
 type Inputs = {

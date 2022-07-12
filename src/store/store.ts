@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { favoriteReducer } from './favoriteSlice'
-import { authenticationReducer } from './loginSlice'
+import { authenticationReducer } from './authSlice'
 
 export const store = configureStore({
   reducer: {
