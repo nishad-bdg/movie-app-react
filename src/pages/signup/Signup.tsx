@@ -53,6 +53,7 @@ function Signup() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors }
   } = useForm<Inputs>()
 
@@ -93,10 +94,14 @@ function Signup() {
               type='password'
               className='form-control mb-2'
               placeholder='Confirm Password'
-              {...register('confirmPassword', { required: true })}
+              {...register('confirmPassword', { required: true, validate: (val: string) => {
+                if(watch('password') !== val) {
+                  return 'Password and confirm password do not match'
+                }
+              } })}
             />
             {errors.confirmPassword && (
-              <p className='error'>This field is required</p>
+              <p className='error'>{ errors.confirmPassword?.message }</p>
             )}
           </label>
           <button type='submit' className='btn btn-danger'>
