@@ -8,19 +8,26 @@ import postFavorite from '../api/postFavorite'
 const initialState: FavoriteState = {
   isLoadingFavorites: false,
   favorites: [],
-  errorMessage: ''
+  errorMessage: '',
+  isSuccess: false
 }
 
 export const favoriteSlice = createSlice({
   name: 'favoriteList',
   initialState,
   reducers: {
+    clearState: (state) => {
+      state.isLoadingFavorites = false
+      state.isSuccess = false
+      state.errorMessage = ''
+    },
     start: (state) => {
       state.isLoadingFavorites = true
     },
     success: (state, action: PayloadAction<Movie>) => {
       state.favorites.push(action.payload)
       state.isLoadingFavorites = false
+      state.isSuccess = true
     },
     fetchSuccess: (state, action: PayloadAction<Movies>) => {
       state.isLoadingFavorites = false
@@ -29,6 +36,7 @@ export const favoriteSlice = createSlice({
     error: (state, action: PayloadAction<string>) => {
       state.isLoadingFavorites = false
       state.errorMessage = action.payload
+      state.isSuccess = false
     }
   }
 })

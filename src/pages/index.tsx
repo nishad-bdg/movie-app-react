@@ -16,6 +16,9 @@ import {
 } from '../store/favoriteSlice'
 import { removeTokens } from '../services/localStorage'
 import { useNavigate } from 'react-router-dom'
+import { clearState } from '../store/authSlice'
+import { useSelector } from 'react-redux'
+import { Notyf } from 'notyf'
 
 function Home() {
   const [netflixOriginals, setNetflixOriginals] = useState<Movies>([])
@@ -24,8 +27,18 @@ function Home() {
   const [romantic, setRomantic] = useState<Movies>([])
   const [comedy, setComedy] = useState<Movies>([])
 
+  const notyf = new Notyf({
+    duration: 5000,
+    position: {
+      x: 'right',
+      y: 'top'
+    }
+  })
+
   const dispatch = useAppDispatch()
   const favorites = useAppSelector(selectFavorites)
+
+  const { isSuccess } = useSelector(selectFavorites)
 
   const getOriginals = async () => {
     const response = await axios.get(requests.fetchNetflixOriginals)
@@ -66,8 +79,7 @@ function Home() {
     const obj = favorites.favorites.find(x => x.id === movie.id)
     if (!obj) {
       dispatch(addToFavorite(movie))
-    } else {
-      alert('object found')
+      dispatch(clearState())
     }
   }
 
@@ -75,8 +87,18 @@ function Home() {
     !isAuthenticated() && history('/login')
     getMovies()
     dispatch(fetchFavorites())
+    return () => {
+      dispatch(clearState())
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (isSuccess) {
+      notyf.success('Movie added to the favorites.')
+      dispatch(clearState())
+    }
+  })
 
   let history = useNavigate()
 
