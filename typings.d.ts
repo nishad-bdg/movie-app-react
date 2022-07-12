@@ -36,6 +36,7 @@ export interface FavoriteState {
   favorites: Movies
   errorMessage: string
   isSuccess: boolean
+  isRemoveSuccess: boolean
 }
 
 export interface FavoritePayload extends IdToken {
@@ -50,4 +51,8 @@ export interface IAuthentication {
   accessToken?: string | null
   errorMessage: string
   isSuccess: boolean
+}
+
+export interface RemoveFavoritePayload extends IdToken {
+  id: number
 }

@@ -4,9 +4,11 @@ import { imageUrl } from '../constants'
 
 interface Props {
   movie: Movie
-  addToFavoriteClick?: (movie: Movie) => void
+  addToFavoriteClick?: (movie: Movie) => void,
+  removeFavoriteClick?: (movie: Movie) => void,
+  title?: string
 }
-function Thumbnail({ movie, addToFavoriteClick }: Props) {
+function Thumbnail({ movie, addToFavoriteClick, title }: Props) {
   return (
     <div className='image-container'>
       <img
@@ -20,7 +22,7 @@ function Thumbnail({ movie, addToFavoriteClick }: Props) {
           style={{ color: '#f11111' }}
           onClick={(e) => addToFavoriteClick?.(movie)}
         >
-          {movie.isFavorite ? 'Remove From Favorite' : 'Add To Favorite'}
+          {title === 'Favorites' ? 'Remove From Favorite' : 'Add To Favorite'}
         </Button>
       </div>
     </div>

@@ -12,7 +12,8 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks'
 import {
   fetchFavorites,
   addToFavorite,
-  selectFavorites
+  selectFavorites,
+  removeFavorites
 } from '../store/favoriteSlice'
 import { removeTokens } from '../services/localStorage'
 import { useNavigate } from 'react-router-dom'
@@ -38,7 +39,7 @@ function Home() {
   const dispatch = useAppDispatch()
   const favorites = useAppSelector(selectFavorites)
 
-  const { isSuccess } = useSelector(selectFavorites)
+  const { isSuccess, isRemoveSuccess, errorMessage } = useSelector(selectFavorites)
 
   const getOriginals = async () => {
     const response = await axios.get(requests.fetchNetflixOriginals)
@@ -76,10 +77,12 @@ function Home() {
   }
 
   const addToFavoriteClick = (movie: Movie) => {
-    const obj = favorites.favorites.find((x) => x.id === movie.id)
-    if (!obj) {
+    const obj = favorites.favorites.findIndex((x) => x.id === movie.id)
+    if (obj < 0 ) {
       dispatch(addToFavorite(movie))
       dispatch(clearState())
+    } else {
+      dispatch(removeFavorites(movie.id || 0, obj)) 
     }
   }
 
@@ -96,6 +99,16 @@ function Home() {
   useEffect(() => {
     if (isSuccess) {
       notyf.success('Movie added to the favorites.')
+      dispatch(clearState())
+    }
+
+    if (isRemoveSuccess) {
+      notyf.success('Movie removed favorites.')
+      dispatch(clearState())
+    }
+
+    if(errorMessage !== '') {
+      notyf.error(errorMessage)
       dispatch(clearState())
     }
   })
@@ -138,7 +151,7 @@ function Home() {
             movies={comedy}
             addToFavoriteClick={addToFavoriteClick}
           />
-          <MovieList title='Favorites' movies={favorites.favorites} />
+          <MovieList title='Favorites' movies={favorites.favorites} addToFavoriteClick={addToFavoriteClick} />
         </section>
       </div>
     </>

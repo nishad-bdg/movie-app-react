@@ -15,6 +15,7 @@ function MovieList({ title, movies, addToFavoriteClick }: Props) {
           <Thumbnail
             key={movie.id}
             movie={movie}
+            title={title}
             addToFavoriteClick={(e) => addToFavoriteClick?.(movie)}
           />
         ))}
