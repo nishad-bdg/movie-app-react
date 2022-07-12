@@ -46,7 +46,7 @@ function Signup() {
     }
 
     if (isSuccess) {
-      notyf.success('Signup successful')
+      notyf.success('Signup successful. Please login to proceed')
       history('/login')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
