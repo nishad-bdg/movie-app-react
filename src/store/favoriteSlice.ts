@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from './store'
 import getFavorites from '../api/getFavorite'
-import { FavoritePayload, FavoriteState, Movie } from '../../typings'
+import { FavoritePayload, FavoriteState, Movie, Movies } from '../../typings'
 import { getAccessToken } from '../services/localStorage'
 import postFavorite from '../api/postFavorite'
 
 const initialState: FavoriteState = {
   isLoadingFavorites: false,
-  favorites: []
+  favorites: [],
+  errorMessage: ''
 }
 
 export const favoriteSlice = createSlice({
@@ -15,23 +16,19 @@ export const favoriteSlice = createSlice({
   initialState,
   reducers: {
     start: (state) => {
-      return {
-        ...state,
-        isLoadingFavorites: true
-      }
+      state.isLoadingFavorites = true
     },
-    success: (state, action: PayloadAction<any>) => {
-      return {
-        ...state,
-        ...action.payload,
-        isLoadingFavorites: false
-      }
+    success: (state, action: PayloadAction<Movie>) => {
+      state.favorites.push(action.payload)
+      state.isLoadingFavorites = false
+    },
+    fetchSuccess: (state, action: PayloadAction<Movies>) => {
+      state.isLoadingFavorites = false
+      state.favorites = action.payload
     },
     error: (state, action: PayloadAction<string>) => {
-      return {
-        ...state,
-        isLoadingFavorites: false
-      }
+      state.isLoadingFavorites = false
+      state.errorMessage = action.payload
     }
   }
 })
@@ -42,7 +39,7 @@ export const fetchFavorites = () => async (dispatch: any) => {
     const token = getAccessToken()
     if (token) {
       const favorites = await getFavorites(token)
-      dispatch(success({ favorites: favorites.data }))
+      dispatch(fetchSuccess(favorites.data))
     }
   } catch (error: any) {
     console.log(error)
@@ -62,13 +59,15 @@ export const addToFavorite = (data: Movie) => async (dispatch: any) => {
         idToken: token
       }
       await postFavorite(payloadData)
+      dispatch(success(payloadData))
       // dispatch(success({ favorites: response.data }))
     }
   } catch (error: any) {
     console.log(error)
+    dispatch(error(error.message))
   }
 }
 
-export const { start, success, error } = favoriteSlice.actions
+export const { start, success, error, fetchSuccess } = favoriteSlice.actions
 export const selectFavorites = (state: RootState) => state.favoriteList
 export const favoriteReducer = favoriteSlice.reducer

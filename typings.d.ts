@@ -34,6 +34,7 @@ export interface IdToken {
 export interface FavoriteState {
   isLoadingFavorites: boolean
   favorites: Movies
+  errorMessage: string
 }
 
 export interface FavoritePayload extends IdToken {

@@ -63,8 +63,12 @@ function Home() {
   }
 
   const addToFavoriteClick = (movie: Movie) => {
-    dispatch(addToFavorite(movie))
-    dispatch(fetchFavorites())
+    const obj = favorites.favorites.find(x => x.id === movie.id)
+    if (!obj) {
+      dispatch(addToFavorite(movie))
+    } else {
+      alert('object found')
+    }
   }
 
   useEffect(() => {
@@ -72,7 +76,7 @@ function Home() {
     getMovies()
     dispatch(fetchFavorites())
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch])
+  }, [])
 
   let history = useNavigate()
 
