@@ -37,6 +37,7 @@ function Signup() {
     return () => {
       dispatch(clearState())
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history])
 
   useEffect(() => {
@@ -48,6 +49,7 @@ function Signup() {
       notyf.success('Signup successful')
       history('/login')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorMessage, isSuccess])
 
   const {
@@ -94,14 +96,17 @@ function Signup() {
               type='password'
               className='form-control mb-2'
               placeholder='Confirm Password'
-              {...register('confirmPassword', { required: true, validate: (val: string) => {
-                if(watch('password') !== val) {
-                  return 'Password and confirm password do not match'
+              {...register('confirmPassword', {
+                required: true,
+                validate: (val: string) => {
+                  if (watch('password') !== val) {
+                    return 'Password and confirm password do not match'
+                  }
                 }
-              } })}
+              })}
             />
             {errors.confirmPassword && (
-              <p className='error'>{ errors.confirmPassword?.message }</p>
+              <p className='error'>{errors.confirmPassword?.message}</p>
             )}
           </label>
           <button type='submit' className='btn btn-danger'>

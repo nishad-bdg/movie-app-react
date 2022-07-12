@@ -39,6 +39,7 @@ function Login() {
     return () => {
       dispatch(clearState())
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history])
 
   useEffect(() => {
@@ -50,6 +51,7 @@ function Login() {
       dispatch(clearState())
       history('/')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorMessage, accessToken])
 
   const {

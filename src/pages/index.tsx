@@ -22,6 +22,7 @@ import { useSelector } from 'react-redux'
 import { Notyf } from 'notyf'
 
 function Home() {
+  const history = useNavigate()
   const [netflixOriginals, setNetflixOriginals] = useState<Movies>([])
   const [topRated, setTopRated] = useState<Movies>([])
   const [action, setAction] = useState<Movies>([])
@@ -95,7 +96,7 @@ function Home() {
       dispatch(clearState())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [history])
 
   useEffect(() => {
     if (isSuccess) {
@@ -112,9 +113,8 @@ function Home() {
       notyf.error(errorMessage)
       dispatch(clearState())
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, isRemoveSuccess, errorMessage])
-
-  let history = useNavigate()
 
   const logout = () => {
     removeTokens()
